@@ -29,7 +29,7 @@ public class dataConnection {
     public void tConnection() throws SQLException{
         String server = "localhost";
         String port = "3306";
-        String database = "sql_store";
+        String database = "sql_hr";
         String user = "root";
         String Password = "123";
         connection = java.sql.DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/"+ database,user,Password);
