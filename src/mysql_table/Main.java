@@ -2,6 +2,7 @@
 package mysql_table;
 
 import Connectivity.dataConnection;
+import Model.Model_chart;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -35,11 +36,18 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Months");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel1.setText("LAST NAME");
+
+        itemcombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemcomboActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("SALARY");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -48,14 +56,14 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pieChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(479, 479, 479)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                .addGap(436, 436, 436)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itemcombo, 0, 82, Short.MAX_VALUE)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addComponent(itemcombo, 0, 73, Short.MAX_VALUE)
+                .addGap(77, 77, 77)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comyear, 0, 83, Short.MAX_VALUE)
+                .addComponent(comyear, 0, 75, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -90,8 +98,23 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void itemcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemcomboActionPerformed
+        if (rootPaneCheckingEnabled) {
+            
+        }
+    }//GEN-LAST:event_itemcomboActionPerformed
  private void showmonths(int year)throws SQLException{
-      
+      PreparedStatement g = dataConnection.instance().getConnection().prepareStatement("SELECT last_name AS Surname, Salary as SALARY FROM employees GROUP BY last_name");
+      ResultSet c = g.executeQuery();
+      while (c.next()) {  
+        int salary = c.getInt("SALARY");
+        String lastname = c.getString("Surname");
+        itemcombo.addItem(new Model_chart(salary, lastname));
+         
+     }
+      g.close();
+      c.close();
   }
  // in this stage we added the SQL throws option and preparedstatement stating how MySql option will be viwed 
   private void showYear () throws SQLException{
@@ -141,7 +164,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comyear;
-    private javax.swing.JComboBox<String> itemcombo;
+    private javax.swing.JComboBox<Object> itemcombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private Chart.PieChart pieChart;
