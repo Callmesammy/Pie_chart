@@ -2,7 +2,6 @@
 package mysql_table;
 
 import Connectivity.dataConnection;
-import Model.Model_chart;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -49,6 +48,12 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Year");
 
+        comboyear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboyearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,8 +98,20 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void comboMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMonthActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_comboMonthActionPerformed
+
+    private void comboyearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboyearActionPerformed
+        if (comboyear.getSelectedIndex()>0) {
+            int year = Integer.valueOf(comboyear.getSelectedItem().toString());
+            try {
+                comboyear.removeAllItems();
+                year(year);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_comboyearActionPerformed
   
   private void month() throws SQLException {
       PreparedStatement p = dataConnection.instance().getConnection().prepareStatement("SELECT DATE_FORMAT(birth_date,'%Y') AS MonthNo FROM customers GROUP BY MonthNo");
@@ -109,6 +126,16 @@ public class Main extends javax.swing.JFrame {
   }
   
   private void year(int yr) throws SQLException{
+      PreparedStatement p = dataConnection.instance().getConnection().prepareStatement("SELECT DATE_FORMAT(birth_date,'%M')AS MonthText, DATE_FORMAT (birth_date,'%m') AS MonthNo FROM customers WHERE DATE_FORMAT(birth_date,'%Y') = '1986' GROUP BY MonthNo");
+      p.setInt(1, yr);
+      ResultSet t = p.executeQuery();
+      
+      while(t.next()){
+          String Monthtext = t.getString("MonthText");
+          int MonthNo = t.getInt("MonthNo");
+          comboyear.addItem(new Model.Model_chart(MonthNo, Monthtext));
+          
+      }
       
   }
     
@@ -146,7 +173,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboMonth;
-    private javax.swing.JComboBox<String> comboyear;
+    private javax.swing.JComboBox<Object> comboyear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private Chart.PieChart pieChart1;
