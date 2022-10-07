@@ -23,11 +23,11 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pieChart = new Chart.PieChart();
+        pieChart1 = new Chart.PieChart();
+        jLabel3 = new javax.swing.JLabel();
+        comboMonth = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        itemcombo = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        comyear = new javax.swing.JComboBox<>();
+        comboyear = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -36,54 +36,46 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel1.setText("LAST NAME");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Month");
 
-        itemcombo.addActionListener(new java.awt.event.ActionListener() {
+        comboMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemcomboActionPerformed(evt);
+                comboMonthActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel2.setText("SALARY");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Year");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pieChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pieChart1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(436, 436, 436)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addContainerGap(473, Short.MAX_VALUE)
+                .addComponent(comboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itemcombo, 0, 73, Short.MAX_VALUE)
-                .addGap(77, 77, 77)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comyear, 0, 75, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addComponent(comboyear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(comyear))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(itemcombo)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(comboyear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pieChart, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(pieChart1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,43 +85,33 @@ public class Main extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             dataConnection.instance().tConnection();
-            showYear();
+            month();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }//GEN-LAST:event_formWindowOpened
 
-    private void itemcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemcomboActionPerformed
-        if (rootPaneCheckingEnabled) {
-            
-        }
-    }//GEN-LAST:event_itemcomboActionPerformed
- private void showmonths(int year)throws SQLException{
-      PreparedStatement g = dataConnection.instance().getConnection().prepareStatement("SELECT last_name AS Surname, Salary as SALARY FROM employees GROUP BY last_name");
-      ResultSet c = g.executeQuery();
-      while (c.next()) {  
-        int salary = c.getInt("SALARY");
-        String lastname = c.getString("Surname");
-        itemcombo.addItem(new Model_chart(salary, lastname));
-         
-     }
-      g.close();
-      c.close();
-  }
- // in this stage we added the SQL throws option and preparedstatement stating how MySql option will be viwed 
-  private void showYear () throws SQLException{
-      PreparedStatement t = dataConnection.instance().getConnection().prepareStatement("SELECT salary AS SALARY FROM employees GROUP BY SALARY");
-      ResultSet r = t.executeQuery();
-      while (r.next()) {          
-          int year = r.getInt("SALARY");
-          comyear.addItem(year+ "");
+    private void comboMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMonthActionPerformed
+  
+  private void month() throws SQLException {
+      PreparedStatement p = dataConnection.instance().getConnection().prepareStatement("SELECT DATE_FORMAT(birth_date,'%Y') AS MonthNo FROM customers GROUP BY MonthNo");
+      ResultSet t = p.executeQuery();
+      while(t.next()){
+          int yr = t.getInt("MonthNo");
+          comboMonth.addItem(yr + "");
+          
       }
+      p.close();
       t.close();
-      r.close();
   }
-    /**
-     * @param args the command line arguments
-     */
+  
+  private void year(int yr) throws SQLException{
+      
+  }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -163,10 +145,10 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> comyear;
-    private javax.swing.JComboBox<Object> itemcombo;
+    private javax.swing.JComboBox<String> comboMonth;
+    private javax.swing.JComboBox<String> comboyear;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private Chart.PieChart pieChart;
+    private javax.swing.JLabel jLabel3;
+    private Chart.PieChart pieChart1;
     // End of variables declaration//GEN-END:variables
 }
