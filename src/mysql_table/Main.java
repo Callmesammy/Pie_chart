@@ -2,6 +2,7 @@
 package mysql_table;
 
 import Connectivity.dataConnection;
+import Model.Model_chart;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -110,7 +111,13 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_comboMonthActionPerformed
 
     private void comboyearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboyearActionPerformed
- 
+
+        if (comboyear.getSelectedIndex()>=0) {
+            int year = Integer.valueOf(comboyear.getSelectedItem().toString());
+            Model_chart mode = (Model_chart)comboyear.getSelectedItem();
+            showData(year, mode.getMonthNo());
+            
+        }
     }//GEN-LAST:event_comboyearActionPerformed
   
   private void Showmonth() throws SQLException {
@@ -137,7 +144,21 @@ public class Main extends javax.swing.JFrame {
       }
       
   }
-    
+    public void showData(int month, int year){
+        try {
+            PreparedStatement t = dataConnection.instance().getConnection().prepareStatement("");
+            t.setInt(1, year);
+            t.setInt(2, year);
+            ResultSet p = t.executeQuery();
+            while (p.next()){
+        
+            }
+            t.close();
+            p.close();
+        } catch (Exception e) {
+        }
+        
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
