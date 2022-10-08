@@ -64,8 +64,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(comboMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89)
-                .addComponent(comboyear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(comboyear, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addContainerGap())
@@ -90,7 +90,7 @@ public class Main extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             dataConnection.instance().tConnection();
-            month();
+            Showmonth();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,26 +98,26 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void comboMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMonthActionPerformed
-      
-    }//GEN-LAST:event_comboMonthActionPerformed
-
-    private void comboyearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboyearActionPerformed
-        if (comboyear.getSelectedIndex()>0) {
-            int year = Integer.valueOf(comboyear.getSelectedItem().toString());
+             if (comboMonth.getSelectedIndex()>=0) {
+            int year = Integer.valueOf(comboMonth.getSelectedItem().toString());
             try {
                 comboyear.removeAllItems();
-                year(year);
+                Showyear(year);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }//GEN-LAST:event_comboMonthActionPerformed
+
+    private void comboyearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboyearActionPerformed
+ 
     }//GEN-LAST:event_comboyearActionPerformed
   
-  private void month() throws SQLException {
-      PreparedStatement p = dataConnection.instance().getConnection().prepareStatement("SELECT DATE_FORMAT(birth_date,'%Y') AS MonthNo FROM customers GROUP BY MonthNo");
+  private void Showmonth() throws SQLException {
+      PreparedStatement p = dataConnection.instance().getConnection().prepareStatement("SELECT DATE_FORMAT(birth_date,'%Y') AS Month FROM customers GROUP BY Month");
       ResultSet t = p.executeQuery();
       while(t.next()){
-          int yr = t.getInt("MonthNo");
+          int yr = t.getInt("Month");
           comboMonth.addItem(yr + "");
           
       }
@@ -125,16 +125,15 @@ public class Main extends javax.swing.JFrame {
       t.close();
   }
   
-  private void year(int yr) throws SQLException{
-      PreparedStatement p = dataConnection.instance().getConnection().prepareStatement("SELECT DATE_FORMAT(birth_date,'%M')AS MonthText, DATE_FORMAT (birth_date,'%m') AS MonthNo FROM customers WHERE DATE_FORMAT(birth_date,'%Y') = '1986' GROUP BY MonthNo");
-      p.setInt(1, yr);
+  private void Showyear(int year) throws SQLException{
+      PreparedStatement p = dataConnection.instance().getConnection().prepareStatement("SELECT DATE_FORMAT(birth_date,'%M')AS MonthText, DATE_FORMAT (birth_date,'%m') AS MonthNo FROM customers WHERE DATE_FORMAT(birth_date,'%Y') =? GROUP BY MonthNo");
+      p.setInt(1, year);
       ResultSet t = p.executeQuery();
       
       while(t.next()){
           String Monthtext = t.getString("MonthText");
           int MonthNo = t.getInt("MonthNo");
-          comboyear.addItem(new Model.Model_chart(MonthNo, Monthtext));
-          
+          comboyear.addItem(new Model.Model_chart(MonthNo, Monthtext));         
       }
       
   }
