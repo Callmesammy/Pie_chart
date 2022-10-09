@@ -146,7 +146,7 @@ public class Main extends javax.swing.JFrame {
   }
     public void showData(int month, int year){
         try {
-            PreparedStatement t = dataConnection.instance().getConnection().prepareStatement("");
+            PreparedStatement t = dataConnection.instance().getConnection().prepareStatement("SELECT b.last_name, c.order_id  FROM orders c JOIN order_items v ON c.order_id = v.quantity JOIN customers B WHERE DATE_FORMAT(birth_date,'%Y') AND DATE_FORMAT(birth_date,'%m')GROUP BY C.order_id");
             t.setInt(1, year);
             t.setInt(2, year);
             ResultSet p = t.executeQuery();
